@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: Google Fit API (used by HealthCheck)
+  version: 1.0.0
+paths:
+  /fitness/v1/users/me/dataset:aggregate:
+    post:
+      summary: Aggregate user fitness data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AggregateRequest'
+      responses:
+        '200':
+          description: Aggregated data response
+        '401':
+          description: Unauthorized
+        '503':
+          description: Service unavailable
+components:
+  schemas:
+    AggregateRequest:
+      type: object
+      properties:
+        aggregateBy:
+          type: array
+          items:
+            type: object
+            properties:
+              dataTypeName:
+                type: string
+        startTimeMillis:
+          type: string
+        endTimeMillis:
+          type: string
